@@ -1,0 +1,18 @@
+channel:
+  type: blender
+
+add_setup:
+  - example.lib.setup
+
+add_packages:
+  - example
+
+add_nodes:
+  - package: anatools
+    name: RandomRandint
+    alias: Random Integer
+    category: Values
+    subcategory: Generators
+    color: "#B3B3B3"
+  - package: anatools
+    name: VolumeFile

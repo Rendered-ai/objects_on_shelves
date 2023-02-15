@@ -1,0 +1,45 @@
+# ana-related
+output/
+data/
+packages/anatools/
+
+# in case anatools is included for testing
+packages/anatools
+
+*.egg-info
+.pytest_cache/
+__pycache__/
+*.hold
+*.log
+
+# don't put compiled or diff files in the repository
+*.pyc
+*.blend1
+*.uni
+*.vdb
+
+# don't put graphics in the repository
+*.png
+*.tif
+*.jpg
+*.pkl
+*.stl
+*.data
+*.dat
+
+# no zip files
+*.zip
+*.rar
+*.tar.gz
+*.bz2
+*.npz
+
+# ignore vscode settings
+*.vscode*
+*.code-workspace
+
+# ignore jupyter checkpoints
+*checkpoint.ipynb
+
+# ignore os-related files
+.DS_Store

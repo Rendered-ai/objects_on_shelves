@@ -1,0 +1,20 @@
+schemas:
+  Weight:
+    inputs:
+      - name: Generator
+        description: The generator to set the weight for
+        validation:
+          numLinks: one
+      - name: Weight
+        description: The weight to give the generator
+        validation:
+          oneOf:
+            - type: integer
+            - numLinks: one
+    outputs:
+      - name: Generator
+        description: The generator with the weight set
+    tooltip: Change the weight of a generator
+    category: Modifiers
+    subcategory: Branch
+    color: "#B32424"
