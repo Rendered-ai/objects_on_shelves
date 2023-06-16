@@ -11,8 +11,34 @@ add_nodes:
   - package: anatools
     name: RandomRandint
     alias: Random Integer
-    category: Values
-    subcategory: Generators
+    category: Graph Control
+    subcategory: Value Generators
+    color: "#B3B3B3"
+  - package: anatools
+    name: RandomUniform
+    alias: Random Uniform
+    category: Graph Control
+    subcategory: Value Generators
+    color: "#B3B3B3"
+  - package: anatools
+    name: RandomNormal
+    alias: Random Normal
+    category: Graph Control
+    subcategory: Value Generators
+    color: "#B3B3B3"
+  - package: anatools
+    name: Weight
+    alias: Weight
+    category: Graph Control
+    subcategory: Branch Modifiers
+    color: "#B3B3B3"
+  - package: anatools
+    name: SelectGenerator
+    alias: Select Generator
+    category: Graph Control
+    subcategory: Branch Modifiers
     color: "#B3B3B3"
   - package: anatools
     name: VolumeFile
+  - package: anatools
+    name: VolumeDirectory

@@ -113,7 +113,8 @@ schemas:
       select:
         - <random>
         - Tile
-        - Wood
+        #- Wood
+        - Hardwood
         - Granite
         - Metal
         - Rocks

@@ -12,25 +12,72 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 schemas:
-  RandomPlacementClass:
-    alias: Random Placement
+  PlacementOverContainerClass:
+    alias: Place Over Container
     inputs:
     - name: Object Generators
-      description: A list of object generators
       validation:
-        numLinks: oneOrMany
+        oneOf:
+          - numLinks: oneOrMany
+          - type: string
+            minLength: 0
+            maxLength: 0
     - name: Number of Objects
-      description: Number of objects to create
       default: 25
       validation:
         oneOf:
           - type: integer
             minimum: 1
           - numLinks: one
+    - name: Container Generator
+      default: ""
+      validation:
+        oneOf:
+          - numLinks: oneOrMany
+          - type: string
+            minLength: 0
+            maxLength: 0
+    - name: Floor Generator
+      validation:
+        numLinks: oneOrMany
     outputs:
-    - name: Objects
-      description: A list of objects
-    tooltip: Place objects in a scene
-    category: Modifiers
-    subcategory: Placement
-    color: "#B32424"
+    - name: Objects of Interest
+    tooltip:  Create objects, conatainers, and floors and drop the objects into the container.
+    category: Scenes
+    subcategory: Rigid Body
+    color: "#B3B324"
+  
+  RandomPlacementClass:
+    alias: Random Placement
+    inputs:
+    - name: Object Generators
+      validation:
+        oneOf:
+          - numLinks: oneOrMany
+          - type: string
+            minLength: 0
+            maxLength: 0
+    - name: Number of Objects
+      default: 25
+      validation:
+        oneOf:
+          - type: integer
+            minimum: 1
+          - numLinks: one
+    - name: Container Generator
+      default: ""
+      validation:
+        oneOf:
+          - numLinks: oneOrMany
+          - type: string
+            minLength: 0
+            maxLength: 0
+    - name: Floor Generator
+      validation:
+        numLinks: oneOrMany
+    outputs:
+    - name: Objects of Interest
+    tooltip:  Create objects, conatainers, and floors and drop the objects randomly.
+    category: Scenes
+    subcategory: Rigid Body
+    color: "#B3B324"
