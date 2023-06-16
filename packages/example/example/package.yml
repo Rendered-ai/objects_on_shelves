@@ -22,6 +22,7 @@
 # package directory
 volumes:
   example: 'e66b164e-8796-48aa-8597-636d85bec240'
+  #example: local
 
 # Define objects.
 objects:
@@ -88,6 +89,9 @@ objects:
 
   Wood:
     filename: example:Floors/Wood.blend
+
+  Hardwood:
+    filename: example:Floors/Wood03.blend
 
   Rocks:
     filename: example:Floors/Rock.blend
