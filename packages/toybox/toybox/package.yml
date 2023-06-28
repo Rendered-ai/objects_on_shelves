@@ -18,11 +18,10 @@
 # This package uses bundled package data. The data is located in the package itself under
 # a sub directory defined by the 'example' logical name.
 # The logical name is then used in the "objects" block to refer to that location.
-# For instance, "example:LowPoly.blend" refers to "data/LowPoly.blend" in the example
+# For instance, "example:Yoyo.blend" refers to "volumes/e66.../Yoyo.blend" in the
 # package directory
 volumes:
   example: 'e66b164e-8796-48aa-8597-636d85bec240'
-  #example: local
 
 # Define objects.
 objects:

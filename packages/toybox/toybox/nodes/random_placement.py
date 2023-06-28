@@ -20,7 +20,7 @@ import anatools.lib.context as ctx
 import numpy as np
 import logging
 from anatools.lib.file_handlers import file_to_objgen
-from example.nodes.object_generators import ExampleChannelObject
+from toybox.nodes.object_generators import ToyboxChannelObject
 
 logger = logging.getLogger(__name__)
 
@@ -39,7 +39,7 @@ class PlacementOverContainerClass(Node):
         objects_input = self.inputs["Object Generators"]
         if objects_input[0] != "":
             #Wrap any file objects in an object generator
-            generators = file_to_objgen(self.inputs["Object Generators"], ExampleChannelObject)
+            generators = file_to_objgen(self.inputs["Object Generators"], ToyboxChannelObject)
             
             #Set up a branch generator for multiple input objects
             branch_generator = CreateBranchGenerator(generators)
@@ -78,7 +78,7 @@ class RandomPlacementClass(Node):
         objects_input = self.inputs["Object Generators"]
         if objects_input[0] != "":
             #Wrap any file objects in an object generator
-            generators = file_to_objgen(self.inputs["Object Generators"], ExampleChannelObject)
+            generators = file_to_objgen(self.inputs["Object Generators"], ToyboxChannelObject)
             
             #Set up a branch generator for multiple input objects
             branch_generator = CreateBranchGenerator(generators)

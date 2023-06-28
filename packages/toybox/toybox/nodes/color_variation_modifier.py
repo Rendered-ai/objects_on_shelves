@@ -13,7 +13,7 @@
 # limitations under the License.
 from anatools.lib.node import Node
 from anatools.lib.generator import ObjectModifier
-from example.nodes.object_generators import ExampleChannelObject
+from toybox.nodes.object_generators import ToyboxChannelObject
 from anatools.lib.file_handlers import file_to_objgen
 import logging
 
@@ -28,7 +28,7 @@ class ColorVariationModifier(Node):
         logger.info("Executing {}".format(self.name))
 
         # wrap any file objects in an object generator
-        generators = file_to_objgen(self.inputs["Generators"], ExampleChannelObject)
+        generators = file_to_objgen(self.inputs["Generators"], ToyboxChannelObject)
  
         # add modifier to the generator tree
         try:

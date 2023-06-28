@@ -1,5 +1,5 @@
-# Example Channel
-The Example channel is a Rendered.ai-developed channel that is used to help users learn some of the basics around channel development. In this channel we showcase a Blender-based scene with toy 3D models and physics.
+# Toybox Channel
+The Toybox channel is a Rendered.ai-developed channel that is used to help users learn some of the basics around channel development. In this channel we showcase a Blender-based scene with toy 3D models and physics.
 
 
 ## Setup
@@ -14,8 +14,8 @@ You'll need to create a Rendered.ai account and sign in to access this volume. I
 
 The following commands will mount the required volumes then execute the default graph.
 ```bash
-anamount --channel example.yml
-ana --channel example.yml --graph graphs/default.yml
+anamount --channel toybox.yml
+ana --channel toybox.yml --graph graphs/default.yml --loglevel INFO
 ```
 
 
