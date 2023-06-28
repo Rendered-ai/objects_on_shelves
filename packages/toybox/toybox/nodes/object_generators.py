@@ -32,9 +32,9 @@ COLORS = {
 }
 
 
-class ExampleChannelObject(AnaObject):
+class ToyboxChannelObject(AnaObject):
     """
-    A class to represent the Example Channel AnaObjects.
+    A class to represent the Toybox Channel AnaObjects.
     Add a 'color' method for the objects of interest.
     """
 
@@ -45,7 +45,7 @@ class ExampleChannelObject(AnaObject):
         pass
 
 
-class BubblesObject(ExampleChannelObject):
+class BubblesObject(ToyboxChannelObject):
     """
     A class to represent the Bubbles AnaObject with a color method specific to the shader nodes of the blender file.
     """
@@ -73,7 +73,7 @@ class BubblesObject(ExampleChannelObject):
             mat[0].material.node_tree.nodes["Transparancy"].outputs[0].default_value = 100
 
 
-class YoyoObject(ExampleChannelObject):
+class YoyoObject(ToyboxChannelObject):
     """
     A class to represent the Yoyo AnaObject with a color method specific to the shader nodes of the blender file.
     """
@@ -95,7 +95,7 @@ class YoyoObject(ExampleChannelObject):
             raise
 
 
-class SkateboardObject(ExampleChannelObject):
+class SkateboardObject(ToyboxChannelObject):
     """
     A class to represent the Skateboard AnaObject with a color method specific to the shader nodes of the blender file.
     """
@@ -116,7 +116,7 @@ class SkateboardObject(ExampleChannelObject):
             raise
 
 
-class PlayDohObject(ExampleChannelObject):
+class PlayDohObject(ToyboxChannelObject):
     """
     A class to represent the PlayDoh AnaObject with a color method specific to the shader nodes of the blender file.
     """
@@ -146,7 +146,7 @@ class BubblesNode(Node):
 
     def exec(self):
         logger.info("Executing {}".format(self.name))
-        return {"Bubbles Bottle Generator": get_blendfile_generator("example", BubblesObject, "BubbleBottle")}
+        return {"Bubbles Bottle Generator": get_blendfile_generator("toybox", BubblesObject, "BubbleBottle")}
 
 
 class YoyoNode(Node):
@@ -156,7 +156,7 @@ class YoyoNode(Node):
 
     def exec(self):
         logger.info("Executing {}".format(self.name))
-        return {"Yoyo Generator": get_blendfile_generator("example", YoyoObject, "YoYo")}
+        return {"Yoyo Generator": get_blendfile_generator("toybox", YoyoObject, "YoYo")}
 
 
 class SkateboardNode(Node):
@@ -166,7 +166,7 @@ class SkateboardNode(Node):
 
     def exec(self):
         logger.info("Executing {}".format(self.name))
-        return {"Skateboard Generator": get_blendfile_generator("example", SkateboardObject, "Skateboard")}
+        return {"Skateboard Generator": get_blendfile_generator("toybox", SkateboardObject, "Skateboard")}
 
 
 class PlayDohNode(Node):
@@ -176,7 +176,7 @@ class PlayDohNode(Node):
 
     def exec(self):
         logger.info("Executing {}".format(self.name))
-        return {"Play Dough Generator": get_blendfile_generator("example", PlayDohObject, "PlayDough")}
+        return {"Play Dough Generator": get_blendfile_generator("toybox", PlayDohObject, "PlayDough")}
 
 
 class RubikNode(Node):
@@ -186,7 +186,7 @@ class RubikNode(Node):
 
     def exec(self):
         logger.info("Executing {}".format(self.name))
-        return {"Rubik's Cube Generator": get_blendfile_generator("example", ExampleChannelObject, "Cube")}
+        return {"Rubik's Cube Generator": get_blendfile_generator("toybox", ToyboxChannelObject, "Cube")}
 
 
 class MixedRubikNode(Node):
@@ -196,7 +196,7 @@ class MixedRubikNode(Node):
 
     def exec(self):
         logger.info("Executing {}".format(self.name))
-        return {"Mixed Cube Generator": get_blendfile_generator("example", ExampleChannelObject, "Mix Cube")}
+        return {"Mixed Cube Generator": get_blendfile_generator("toybox", ToyboxChannelObject, "Mix Cube")}
 
 
 class ContainerNode(Node):
@@ -222,7 +222,7 @@ class ContainerNode(Node):
             logger.error("{} in \"{}\": \"{}\"".format(type(e).__name__, type(self).__name__, e).replace("\n", ""))
             raise
 
-        return {"Container Generator": get_blendfile_generator("example", AnaObject, box_type)}
+        return {"Container Generator": get_blendfile_generator("toybox", AnaObject, box_type)}
 
 
 class FloorNode(Node):
@@ -245,4 +245,4 @@ class FloorNode(Node):
             logger.error("{} in \"{}\": \"{}\"".format(type(e).__name__, type(self).__name__, e).replace("\n", ""))
             raise
 
-        return {"Floor Generator": get_blendfile_generator("example", AnaObject, floor_type)}
+        return {"Floor Generator": get_blendfile_generator("toybox", AnaObject, floor_type)}
