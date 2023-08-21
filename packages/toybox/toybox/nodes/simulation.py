@@ -25,7 +25,6 @@ import glob
 
 logger = logging.getLogger(__name__)
 
-
 class LightNode(Node):
     """
     A class to represent a the Light node, a node that crates a lamp in the scene.
@@ -141,7 +140,7 @@ class RenderNode(Node):
             objects=objects,
             sensor_name=sensor_name)
 
-        #Add denoise node to compositor
+        #Configure the compositor to include a denoise node for the image
         s = bpy.data.scenes[ctx.channel.name]
         c_rl = s.node_tree.nodes['Render Layers']
         c_c = s.node_tree.nodes['Composite']
@@ -150,12 +149,13 @@ class RenderNode(Node):
         c_of = s.node_tree.nodes.new('CompositorNodeOutputFile')
         c_of.base_path = os.path.join(ctx.output,'images')
         c_of.file_slots.clear()
-        c_of.file_slots.new(f'{ctx.interp_num:010}-#-{sensor_name}.png')
-        s.node_tree.links.new(c_rl.outputs[0], c_dn.inputs[0])
-        s.node_tree.links.new(c_dn.outputs[0], c_c.inputs[0])
-        s.node_tree.links.new(c_dn.outputs[0], c_of.inputs[0])
-                    
-        #OK. Now it's time to render.
+        compositeNodeFieldName = f'{ctx.interp_num:010}-#-{sensor_name}.png'
+        c_of.file_slots.new(compositeNodeFieldName)
+        s.node_tree.links.new(c_rl.outputs['Image'], c_dn.inputs['Image'])
+        s.node_tree.links.new(c_dn.outputs['Image'], c_c.inputs['Image'])
+        s.node_tree.links.new(c_dn.outputs['Image'], c_of.inputs[compositeNodeFieldName])
+
+        #Render the image
         if ctx.preview:
             logger.info("LOW RES Render for Preview")
             render(resolution='preview')
@@ -163,30 +163,61 @@ class RenderNode(Node):
             preview = imageio.imread(os.path.join(ctx.output,'images',imgfilename))
             imageio.imsave(os.path.join(ctx.output,'preview.png'), preview)
             return{}
-        else:
-            #bpy.ops.wm.save_as_mainfile(filepath=os.path.join(os.getcwd(),"scene4render.blend"))
-            render()
 
-        #Prepare for annotataions: Remove link to image output file, update objects, (re)write masks
+        #bpy.ops.wm.save_as_mainfile(filepath=os.path.join(os.getcwd(),"scene4render.blend"))
+        render()        
+
+        #Prepare for annotataions
+        for obj in objects:
+            obj.setup_mask()
+        
+        collect_depth = self.inputs["Collect Depth and Normal Masks"][0]
+        if collect_depth == 'T':
+            #Configure compositor to write a depth and normal mask
+            #Add the Z and normal pass veiw layers
+            bpy.context.scene.view_layers["ViewLayer"].use_pass_z = True
+            bpy.context.scene.view_layers["ViewLayer"].use_pass_normal = True
+            #Connect the depth render layer to a file output node - normalize this for viewing purposes
+            c_normalize = s.node_tree.nodes.new("CompositorNodeNormalize")
+            depthOutFieldName = f'{ctx.interp_num:010}-#-{sensor_name}-depth.png'
+            c_output_depth = s.node_tree.nodes.new('CompositorNodeOutputFile')
+            c_output_depth.base_path = os.path.join(ctx.output,'masks')
+            c_output_depth.file_slots.clear()
+            c_output_depth.file_slots.new(depthOutFieldName)
+            s.node_tree.links.new(c_rl.outputs["Depth"], c_normalize.inputs['Value'])
+            s.node_tree.links.new(c_normalize.outputs['Value'], c_output_depth.inputs[depthOutFieldName])
+            #Connect the normal render layer to a file output
+            #c_normalize = s.node_tree.nodes.new("CompositorNodeNormalize")
+            normalOutFieldName = f'{ctx.interp_num:010}-#-{sensor_name}-normal.png'
+            c_output_normal = s.node_tree.nodes.new('CompositorNodeOutputFile')
+            c_output_normal.base_path = os.path.join(ctx.output,'masks')
+            c_output_normal.file_slots.clear()
+            c_output_normal.file_slots.new(normalOutFieldName)
+            # s.node_tree.links.new(c_rl.outputs["Normal"], c_normalize.inputs['Value'])
+            # s.node_tree.links.new(c_normalize.outputs['Value'], c_output_depth.inputs[normalOutFieldName])
+            s.node_tree.links.new(c_rl.outputs["Normal"], c_output_normal.inputs[normalOutFieldName])    
+
+        #Remove link to image output file
         s = bpy.data.scenes[ctx.channel.name]
         c_of = s.node_tree.nodes['File Output']
         c_of.file_slots.clear()
-        for obj in objects:
-            obj.setup_mask()
-        render(resolution='masks')
-        c_of.file_slots.new(f'{ctx.interp_num:010}-#-{sensor_name}.png')
-        s.node_tree.links.new(c_dn.outputs[0], c_of.inputs[0])
-
-        calculate_obstruction = self.inputs["Calculate Obstruction"][0]
         
+        #Write masks
+        #bpy.ops.wm.save_as_mainfile(filepath=os.path.join(os.getcwd(),"compositor4masks.blend"))
+        render(resolution='masks')
+        
+        #You can re-link the output image file node if blender is needed to render the image again
+        # c_of.file_slots.new(f'{ctx.interp_num:010}-#-{sensor_name}.png')
+        # s.node_tree.links.new(c_dn.outputs[0], c_of.inputs[0])
+
+        calculate_obstruction = self.inputs["Calculate Obstruction"][0]        
         if calculate_obstruction == 'F':
             # Create annotations 
             scene.write_ana_annotations()
             scene.write_ana_metadata()
             return {}
         
-        #Render masks for each object.
-        #only render a mask file for objects in the image
+        #Render masks for each object (only render a mask file for objects in the image)
 
         #Unlink all the object masks in the compositor
         links = scn.node_tree.links
