@@ -97,6 +97,15 @@ schemas:
           maximum: 3000
         minItems: 2
         maxItems: 2
+    - name: Collect Depth and Normal Masks
+      default: 'T'
+      select:
+        - 'T'
+        - 'F'
+      validation:
+        type: string
+        minLength: 1
+        maxLength: 1
     - name: Calculate Obstruction
       default: 'F'
       description: Enable obstrution calculation
