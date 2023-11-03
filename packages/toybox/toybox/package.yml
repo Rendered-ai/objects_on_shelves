@@ -22,18 +22,19 @@
 # package directory
 volumes:
   example: 'e66b164e-8796-48aa-8597-636d85bec240'
+  #example: local
 
 # Define objects.
 objects:
 
   YoYo:
-    filename: example:YoYo.blend
+    filename: example:YoYo_greenLogo.blend
 
   BubbleBottle:
-    filename: example:BubbleBottle.blend
+    filename: example:BubbleBottle_greenLogo.blend
 
   Skateboard:
-    filename: example:Skateboard.blend
+    filename: example:Skateboard_v2.blend
 
   Cube:
     filename: example:Cube.blend
@@ -42,7 +43,7 @@ objects:
     filename: example:MixCube.blend
 
   PlayDough:
-    filename: example:PlayDough.blend
+    filename: example:PlayDough_greenLogo.blend
 
   Light Wooden Box:
     filename: example:Containers/LightWoodenBox.blend

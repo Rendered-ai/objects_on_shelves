@@ -104,7 +104,7 @@ class RandomPlacementClass(Node):
 
 def drop(object_list, inputs):
     """
-    A class to represent the DropObjects node, a node that applies gravity, "drop physics", to objects in a scene.
+    Apply gravity to objects in a scene, creating a floor and container that do not fall.
     """
 
     #Let's make sure we have a rigid body world going.

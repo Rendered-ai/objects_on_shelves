@@ -77,9 +77,6 @@ class CameraNode(Node):
         height_limits = (0.4, 0.7)
         if height == "<random>":
             height = ctx.random.uniform(height_limits[0], height_limits[1])
-        else:
-            height = min(height, height_limits[1])
-            height = max(height, height_limits[0])
         x = ctx.random.uniform(0, height)
         y_limit = math.sqrt(height**2 - x**2)
         y=ctx.random.uniform(-y_limit, y_limit)
