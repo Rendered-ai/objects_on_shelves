@@ -51,26 +51,19 @@ class BubblesObject(ToyboxChannelObject):
     """
 
     def color(self, color_type=None):
-        # Change the bubbles bottle RGB Node
+        # Change the bubbles bottle body color
         try:
             if color_type == '<random>':
-                # ctx.random just np.random and retains the seed used for reproducibility
                 color_type = ctx.random.choice([c for c in COLORS.keys()])
                 while color_type in ['White', 'Black']:
                     color_type = ctx.random.choice([c for c in COLORS.keys()])
-
-            mat = [m for m in self.root.material_slots if 'BubbleBottle' in m.name]
-            if len(mat):
-                rgb_node = mat[0].material.node_tree.nodes['RGB']
-                rgb_node.outputs[0].default_value = COLORS[color_type]
+            
+            bottleBodyMatSlot = [ms for ms in self.root.material_slots if 'BubbleBottle' in ms.name][0]
+            bottleBodyColor = bottleBodyMatSlot.material.node_tree.nodes['Principled BSDF'].inputs['Base Color']
+            bottleBodyColor.default_value = COLORS[color_type]
         except Exception as e:
             logger.error("{} in \"{}\": \"{}\"".format(type(e).__name__, type(self).__name__, e).replace("\n", ""))
             raise
-
-    def setup_mask(self):
-        mat = [m for m in self.root.material_slots if 'BubbleBottle' in m.name]
-        if len(mat):
-            mat[0].material.node_tree.nodes["Transparancy"].outputs[0].default_value = 100
 
 
 class YoyoObject(ToyboxChannelObject):
@@ -129,11 +122,9 @@ class PlayDohObject(ToyboxChannelObject):
                 while color_type in ['Yellow', 'Orange']:
                     color_type = ctx.random.choice([c for c in COLORS.keys()])
 
-            # Script in Blender: bpy.data.materials["RenDoh"].node_tree.nodes["RGB.004"].outputs[0].default_value = ...
-            mat = [m for m in self.root.material_slots if 'RenDoh' in m.name]
-            if len(mat):
-                rgb_node = mat[0].material.node_tree.nodes['RGB.004']
-                rgb_node.outputs[0].default_value = COLORS[color_type]
+            lidMatSlot = [ms for ms in self.root.material_slots if 'PlaydoughCover' in ms.name][0]
+            lidColor = lidMatSlot.material.node_tree.nodes['Principled BSDF'].inputs['Base Color']
+            lidColor.default_value = COLORS[color_type]
         except Exception as e:
             logger.error("{} in \"{}\": \"{}\"".format(type(e).__name__, type(self).__name__, e).replace("\n", ""))
             raise
