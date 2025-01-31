@@ -1,41 +1,26 @@
-# Toybox Channel
-The Toybox channel is a Rendered.ai-developed channel that is used to help users learn some of the basics around channel development. In this channel we showcase a Blender-based scene with toy 3D models and physics.
-
+# Objects on Shelves Channel
+Place objects on shelves, modifing objects, placemenet scenes, and lighting using a Blender-based scene with 3D models and rigid body physics. This is a basic Rendered.ai channel for users to learn some of the elements of channel development. Please add or edit nodes, and deploy to your organization to customize your datasets.
 
 ## Setup
-[Setting up the Development Environment](https://support.rendered.ai/dg/Setting-Up-the-Development-Environment.1576501249.html):
-Rendered.ai provides Development Docker Images that can be used with VSCode to simplify setting up your environment for channel development and can also accelerate the channel deployment process. Rendered.ai provides a number of public docker images that include Blender for CPU and GPU-based channels. To see a full list of images, visit Rendered.ai's [ECR Public Gallery site](https://gallery.ecr.aws/renderedai/).
-
+See the Rendered.ai support documentation for channel development. Get started with [Setting up the Development Environment](https://support.rendered.ai/development-guides/setting-up-the-development-environment):
 
 ## Running Locally
-To run a graph from this channel, you'll need to locally mount the volumes using the 'anamount' command. The volumeIds required for this channel to run are:
-- e66b164e-8796-48aa-8597-636d85bec240
-You'll need to create a Rendered.ai account and sign in to access this volume. If you sign in and still don't have permissions to access the volume, contact admin@rendered.ai for help.
+To run a graph from this channel, you'll need to locally mount the volumes using the 'anamount' command. This command is part of anatools and requires logging in - make sure to sign up for a free trial account.
 
 The following commands will mount the required volumes then execute the default graph.
 ```bash
-anamount --channel toybox.yml
-ana --channel toybox.yml --graph graphs/default.yml --loglevel INFO
+anamount
+ana --graph graphs/default.yml --loglevel INFO
 ```
-
 
 ## Documentation
 Documentation has been created for this channel in the docs/ directory. This includes information about graph requirements for the channel, available nodes and other channel-related insights.
-
 
 ## Graphs
 The available graphs for the channel are located in the graphs/ directory.
 
 | graph | description |
 |---|---|
-| default.yml | Places 20 randomized toy objects above a box then drops them in. |
+| default.yml | Places 20 randomized toy objects on a shelf. |
 
-
-## Mappings
-The available mappings for the channel are located in the mappings/ directory.
-
-| mapping | description |
-|---|---|
-| default.yml | All objects in the channel are categorized into a unique class. |
-| rubikcube.yml | Only categorizes rubik cubes, leaves all other objects in a distractor class. |
-| toy.yml | All toy objects are categorized into a single class. |
+If you run into any problems, please contact admin@rendered.ai for help.

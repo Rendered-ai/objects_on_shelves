@@ -34,6 +34,6 @@
 	"extensions": ["ms-python.python", "ms-python.vscode-pylance"],
 	"_runArgs": ["--network","host","-v","/var/run/docker.sock:/var/run/docker.sock","--privileged=true","--gpus","all"],
 	"runArgs": ["--network","host","-v","/var/run/docker.sock:/var/run/docker.sock","--privileged=true"],
-	"postCreateCommand": "sudo chmod 777 /var/run/docker.sock && rm /home/anadev/.docker/config.json && /home/anadev/miniconda3/envs/anatools/bin/pip install -r requirements.txt",
+	"postCreateCommand": "sudo chmod 777 /var/run/docker.sock && /home/anadev/miniconda3/envs/anatools/bin/pip install -r requirements.txt",
 	"remoteUser": "anadev"
 }
